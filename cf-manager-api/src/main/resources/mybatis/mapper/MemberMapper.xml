@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cf.potal.dao.MemberMapper" >
+  <resultMap id="BaseResultMap" type="cf.bean.Member" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="loginacct" property="loginacct" jdbcType="VARCHAR" />
+    <result column="userpswd" property="userpswd" jdbcType="CHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="authstatus" property="authstatus" jdbcType="CHAR" />
+    <result column="usertype" property="usertype" jdbcType="CHAR" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="cardnum" property="cardnum" jdbcType="VARCHAR" />
+    <result column="accttype" property="accttype" jdbcType="CHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_member
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="Member" >
+    insert into t_member (id, loginacct, userpswd, 
+      username, email, authstatus, 
+      usertype, realname, cardnum, 
+      accttype)
+    values (#{id,jdbcType=INTEGER}, #{loginacct,jdbcType=VARCHAR}, #{userpswd,jdbcType=CHAR}, 
+      #{username,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{authstatus,jdbcType=CHAR}, 
+      #{usertype,jdbcType=CHAR}, #{realname,jdbcType=VARCHAR}, #{cardnum,jdbcType=VARCHAR}, 
+      #{accttype,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="Member">
+    insert into t_member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="loginacct != null">
+        loginacct,
+      </if>
+      <if test="userpswd != null">
+        userpswd,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="authstatus!= null">
+        authstatus,
+      </if>
+      <if test="usertype != null">
+        usertype,
+      </if>
+      <if test="realname != null">
+        realname,
+      </if>
+      <if test="cardnum!= null">
+        cardnum,
+      </if>
+      <if test="accttype!= null">
+       accttype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="loginacct != null">
+        #{loginacct,jdbcType=VARCHAR},
+      </if>
+      <if test="userpswd != null">
+        #{userpswd,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="authstatus!= null">
+        #{authstatus},
+      </if>
+      <if test="usertype != null">
+        #{usertype},
+      </if>
+      <if test="realname != null">
+        #{realname},
+      </if>
+      <if test="cardnum != null">
+        #{cardnum},
+      </if>
+      <if test="accttype != null">
+        #{accttype},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="Member" >
+    update t_member
+    set loginacct = #{loginacct,jdbcType=VARCHAR},
+      userpswd = #{userpswd,jdbcType=CHAR},
+      username = #{username,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      authstatus = #{authstatus,jdbcType=CHAR},
+      usertype = #{usertype,jdbcType=CHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      cardnum = #{cardnum,jdbcType=VARCHAR},
+      accttype = #{accttype,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_member
+    <set>
+      <if test="record.id != null">
+        id = #{record.id},
+      </if>
+      <if test="record.loginacct != null">
+        loginacct = #{record.loginacct},
+      </if>
+      <if test="record.userpswd != null">
+        userpswd = #{record.userpswd},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email},
+      </if>
+      <if test="record.usertype != null">
+        usertype = #{record.usertype},
+      </if>
+      <if test="record.authstatus != null">
+        authstatus = #{record.authstatus},
+      </if>
+      <if test="record.realname != null">
+        realname = #{record.realname},
+      </if>
+      <if test="record.cardnum != null">
+        cardnum = #{record.cardnum},
+      </if>
+      <if test="record.accttype != null">
+        accttype = #{record.accttype}
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_member
+    set id = #{record.id,jdbcType=INTEGER},
+      loginacct = #{record.loginacct,jdbcType=VARCHAR},
+      userpswd = #{record.userpswd,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      usertype = #{record.usertype}，
+      authstatus = #{record.authstatus},
+      realname = #{record.realname},
+      cardnum = #{record.cardnum},
+      accttype = #{record.accttype}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, loginacct, userpswd, username, email, authstatus, usertype, realname, 
+    cardnum, accttype
+    from t_member
+  </select>
+  
+  <select id="queryMebmerlogin" resultMap="BaseResultMap" >
+  	select id, loginacct, userpswd, username, email, authstatus, usertype, realname, 
+    cardnum, accttype
+    from t_member where loginacct=#{loginacct} and userpswd=#{userpswd}
+  </select>
+  
+  
+  
+   <update id="updateAcctType" parameterType="Member" >
+    update t_member
+    set 
+      accttype = #{accttype,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <update id="updateBasicinfo" parameterType="Member" >
+    update t_member
+    set 
+     realname = #{realname,jdbcType=VARCHAR},
+      cardnum = #{cardnum,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  <update id="updateEmail">
+  update t_member
+    set 
+      email = #{email}
+    where id = #{id}
+  </update>
+  
+  <update id="updateAuthstatus">
+  update t_member
+    set 
+     authstatus = #{authstatus}
+    where id = #{id}
+  </update>
+
+  <select id="selectByPrimaryKey" resultType="Member" parameterType="java.lang.Integer" >
+    select *
+    from t_member
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="queryCertByMemberid" resultType="map">
+  	SELECT t_cert.id,t_cert.name,t_member_cert.iconpath 
+	FROM t_cert JOIN t_member_cert 
+	ON t_cert.id = t_member_cert.certid
+	WHERE t_member_cert.memberid = #{memberid}
+  </select>
+  <select id="selectByName" resultType="Member">
+  select * from t_member where loginacct=#{loginacct} limit 1;
+  </select>
+  <select id="queryCert" resultType="Cert">
+  select c.*
+  from t_cert c
+  join t_account_type_cert atc
+  on c.id=atc.certid
+  where atc.accttype=#{accttype}
+  </select>
+  <insert id="saveMemberCert">
+  insert into t_member_cert (memberid,certid,iconpath) values(#{memberid},#{certid},#{iconpath})
+  </insert>
+</mapper>
