@@ -5,7 +5,7 @@
 （1）登入/退出：根据所选登入类型到响应的表中查询账号密码信息，若验证通过跳转到管理员/会员页面并将用户信息放入session域。退出时清除session域<br>
 （2）登入拦截：配置登入拦截器。在拦截器中设置不需要拦截的uri，当用户通过前端控制器访问时，uri在不需要拦截范围内放行，否则判断用户是否登入若没有登入重定向到登入页面<br>
 （3）权限拦截：配置权限拦截器。配置一个监听器在项目启动时从数据库权限表获取所有权限对应的allUri放入session域中，当用户通过前端控制器访问时，获取访问路径uri，如果uri不在allUri内，再从数据库获取该用户访问权限userUris,如果uri不在userUri内打回登入界面，否则放行<br>
-! [拦截器] (https://github.com/jiangxiaotao1024/images/blob/master/%E4%BC%97%E7%AD%B9/%E6%8B%A6%E6%88%AA%E5%99%A8.jpg)；
+![image](https://github.com/jiangxiaotao1024/images/blob/master/%E4%BC%97%E7%AD%B9/%E6%8B%A6%E6%88%AA%E5%99%A8.jpg)
 # 利用activiti5部署流程
 （1）通过监听器在服务器启动时创建流程引擎<br>
 （2）通过ioc容器获取流程引擎<br>
